@@ -6,17 +6,18 @@ class arithmetic_arranger:
         self.arithmetic_arranger(numbers, answers)
 
         
+
     def arithmetic_arranger(self, numbers, answers):
-        first = []
-        second = []
+        firstNumber = []
+        secondNumber = []
         sign = []
 
         for n in numbers:
-            first.append(re.findall("^[0-9]+", n)[0])
-            second.append(re.findall(" [0-9]+", n)[0])
+            firstNumber.append(re.findall("^[0-9]+", n)[0].rjust(4))
+            secondNumber.append(re.findall(" [0-9]+", n)[0].rjust(4))
             sign.append(re.findall("[+-]", n)[0])
 
-        for f in first:
+        for f in firstNumber:
             print("  ", end = "")
             print(f, end = "\t")
 
@@ -27,14 +28,39 @@ class arithmetic_arranger:
 
         print()
 
-        for s in second:
+        for s in secondNumber:
             print("  ", end = "")
             print(s, end = "\t")
 
         print()
 
         for i in range(0, 4):
-            print("-----", end = "\t")
+            print("-------", end = "\t")
+
+        print()
+
+        if (answers):
+            counter = 0
+            result = 0
+            while (True):
+                if (counter == 4):
+                    break
+                
+                first = int(firstNumber[counter])
+                operation = sign[counter]
+                second= int(secondNumber[counter])
+
+                if (operation == '+'):
+                    result = first + second
+
+                if (operation == '-'):
+                    result = first - second
+
+                counter = counter + 1
+
+                print(str(result).rjust(6), end = "\t")
+
+                
 
     def exceptions(self, numbers):
         if (len(numbers) > 5):
@@ -49,7 +75,3 @@ class arithmetic_arranger:
             for num in new_list:
                 if (len(num) > 4):
                     raise Exception("Number too big")
-
-    
-
-
